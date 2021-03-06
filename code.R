@@ -33,10 +33,12 @@ dygraph(data, main = "Spread of SARS-CoV-2 in the UK") %>%
 
 library(maptools)
 library(rgeos)
-library(tidyverse)
+library(dplyr)
 library(rgdal)
 library(ggthemes)
 library(sf)
+library(purrr)
+library(tidyverse)
 
 covid <- read_csv("https://data.london.gov.uk/download/coronavirus--covid-19--cases/151e497c-a16e-414e-9e03-9e428f555ae9/phe_cases_london_boroughs.csv")
 
