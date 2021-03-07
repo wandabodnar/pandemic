@@ -6,7 +6,7 @@ library(shinyWidgets)
 library(shiny)
 
 covid <- read.csv(url("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv"))
-covid <- covid[!(covid$location=="Europe" | covid$location=="European Union" | covid$location=="Africa" | covid$location=="International" | covid$location=="Micronesia (country)" | covid$location=="North America" | covid$location=="Oceania"),]
+covid <- covid[!(covid$location=="Europe" | covid$location=="European Union" | covid$location=="Africa" | covid$location=="International" | covid$location=="Micronesia (country)" | covid$location=="North America" | covid$location=="Oceania" | covid$location=="South America"),]
 covid$date <- ymd(covid$date)
 covid <- subset(covid, select = -c(1:2, 5, 7:59))
 covid[is.na(x = covid)] <- 0
