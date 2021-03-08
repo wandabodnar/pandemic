@@ -1,11 +1,11 @@
-## Spread of SARS-CoV-2 in London
+## Spread of SARS-CoV-2
 
-#Graph
+# UK graph
 
 library(dygraphs)
 library(xts)
 library(lubridate)
-library(tidyverse)
+library(dplyr)
 
 covid <- read.csv(url("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/owid-covid-data.csv"))
 
@@ -29,7 +29,7 @@ dygraph(data, main = "Spread of SARS-CoV-2 in the UK") %>%
   dyCSS("dygraph.css")
 
 
-#Map
+# London map
 
 library(maptools)
 library(rgeos)
@@ -40,7 +40,7 @@ library(sf)
 library(purrr)
 library(tidyverse)
 
-covid <- read_csv("https://data.london.gov.uk/download/coronavirus--covid-19--cases/151e497c-a16e-414e-9e03-9e428f555ae9/phe_cases_london_boroughs.csv")
+covid <- read.csv("https://data.london.gov.uk/download/coronavirus--covid-19--cases/151e497c-a16e-414e-9e03-9e428f555ae9/phe_cases_london_boroughs.csv")
 
 ldn <- st_read("ESRI/London_Borough_Excluding_MHW.shp", stringsAsFactors = FALSE, quiet = TRUE) %>% 
   st_transform(4326) %>% 
@@ -61,7 +61,7 @@ random_round <- function(x) {
 }
 
 sf_data_sub <- sf_data %>%
-  filter(date == "2021-03-03")
+  filter(date == "2021-03-06")
 
 num_dots <- as.data.frame(sf_data_sub) %>% 
   select(new_cases) %>% 
@@ -87,7 +87,7 @@ p <- ggplot() +
   theme_void(base_size = 48) +
   labs(x = NULL, y = NULL,
        title = "Spread of SARS-CoV-2 in London",
-       subtitle = "Date: 03/03/2021 \n 1 dot = 1 new case",
+       subtitle = "Date: 06/03/2021 \n 1 dot = 1 new case",
        caption = "Data source: PHE") +
   guides(colour = guide_legend(override.aes = list(size = 18))) +
   theme(plot.background = element_rect(fill = "black", color = NA), 
@@ -100,6 +100,36 @@ p <- ggplot() +
         legend.title = element_blank(),
         legend.position = "none")
 
-ggsave("map.png", plot = p, dpi = 72, width = 100.39, height = 86.49, units = "cm")
+ggsave("377.png", plot = p, dpi = 72, width = 100.39, height = 86.49, units = "cm")
 
 #The images were resized to 2842x2449px and the video was rendered in Photoshop.
+
+# London graph
+
+library(dygraphs)
+library(xts)
+library(lubridate)
+library(dplyr)
+
+ldn <- read.csv("https://data.london.gov.uk/download/coronavirus--covid-19--cases/151e497c-a16e-414e-9e03-9e428f555ae9/phe_cases_london_boroughs.csv")
+
+ldn_sub <- subset(ldn, select = -c(1:2, 5))
+
+ldn_sum <- ldn_sub %>%
+  group_by(date) %>%
+  summarize(sum = sum(new_cases))
+
+ldn_sum$date <- ymd(ldn_sum$date)
+
+str(ldn_sub)
+
+ldn_data <- xts(x = ldn_sum$sum, order.by = ldn_sum$date)
+
+names(ldn_data) <- c("New cases")
+
+dygraph(ldn_data, main = "Spread of SARS-CoV-2 in London") %>%
+  dyOptions(fillGraph = TRUE, fillAlpha = 0.5, colors = "#00C5FF") %>%
+  dyCrosshair(direction = "vertical") %>%
+  dyLegend(show = "always") %>%
+  dyRangeSelector() %>%
+  dyCSS("dygraph.css")
