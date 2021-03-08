@@ -56,7 +56,7 @@ shinyApp(
                 return()
             }
             p <- ggplot(filtered(), aes(Date, New.cases)) +
-                geom_line(colour = "#00C5FF", size = 0.5) +  
+                geom_line(colour = "#337ab7", size = 0.5) +  
                 labs(x = NULL, y = "New cases") +
                 ggtitle("Spread of SARS-CoV-2 in the World") +
                 theme(plot.background = element_rect(fill = "black", color = NA), 
