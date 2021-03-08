@@ -22,11 +22,7 @@ data <- xts(x = uk_covid_sub$new_cases, order.by = uk_covid_sub$date)
 names(data) <- c("New cases")
 
 dygraph(data, main = "Spread of SARS-CoV-2 in the UK") %>%
-  dyOptions(fillGraph = TRUE, fillAlpha = 0.5, colors = "#00C5FF") %>%
-  dyEvent("2020-3-23", "UK lockdown", labelLoc = "bottom", color = "white") %>%
-  dyEvent("2020-9-14", "First lockdown in Wales", labelLoc = "bottom", color = "white") %>%
-  dyEvent("2020-10-23", "Second lockdown in Wales", labelLoc = "bottom", color = "white") %>%
-  dyEvent("2020-12-28", "Third lockdown in Wales", labelLoc = "bottom", color = "white") %>%
+  dyOptions(fillGraph = TRUE, fillAlpha = 0.5, colors = "#337ab7") %>%
   dyCrosshair(direction = "vertical") %>%
   dyLegend(show = "always") %>%
   dyRangeSelector() %>%
@@ -133,7 +129,7 @@ ldn_data <- xts(x = ldn_sum$sum, order.by = ldn_sum$date)
 names(ldn_data) <- c("New cases")
 
 dygraph(ldn_data, main = "Spread of SARS-CoV-2 in London") %>%
-  dyOptions(fillGraph = TRUE, fillAlpha = 0.5, colors = "#00C5FF") %>%
+  dyOptions(fillGraph = TRUE, fillAlpha = 0.5, colors = "#337ab7") %>%
   dyAnnotation("2020-12-29", text = "P", tooltip = "Peak") %>%
   dyEvent("2020-3-23", "First lockdown", labelLoc = "bottom", color = "white") %>%
   dyEvent("2020-11-05", "Second lockdown", labelLoc = "bottom", color = "white") %>%
