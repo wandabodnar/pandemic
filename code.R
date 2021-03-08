@@ -23,6 +23,10 @@ names(data) <- c("New cases")
 
 dygraph(data, main = "Spread of SARS-CoV-2 in the UK") %>%
   dyOptions(fillGraph = TRUE, fillAlpha = 0.5, colors = "#00C5FF") %>%
+  dyEvent("2020-3-23", "UK lockdown", labelLoc = "bottom", color = "white") %>%
+  dyEvent("2020-9-14", "First lockdown in Wales", labelLoc = "bottom", color = "white") %>%
+  dyEvent("2020-10-23", "Second lockdown in Wales", labelLoc = "bottom", color = "white") %>%
+  dyEvent("2020-12-28", "Third lockdown in Wales", labelLoc = "bottom", color = "white") %>%
   dyCrosshair(direction = "vertical") %>%
   dyLegend(show = "always") %>%
   dyRangeSelector() %>%
@@ -104,6 +108,7 @@ ggsave("377.png", plot = p, dpi = 72, width = 100.39, height = 86.49, units = "c
 
 #The images were resized to 2842x2449px and the video was rendered in Photoshop.
 
+
 # London graph
 
 library(dygraphs)
@@ -129,7 +134,12 @@ names(ldn_data) <- c("New cases")
 
 dygraph(ldn_data, main = "Spread of SARS-CoV-2 in London") %>%
   dyOptions(fillGraph = TRUE, fillAlpha = 0.5, colors = "#00C5FF") %>%
+  dyAnnotation("2020-12-29", text = "P", tooltip = "Peak") %>%
+  dyEvent("2020-3-23", "First lockdown", labelLoc = "bottom", color = "white") %>%
+  dyEvent("2020-11-05", "Second lockdown", labelLoc = "bottom", color = "white") %>%
+  dyEvent("2020-12-21", "Tier 4 restrictions", labelLoc = "bottom", color = "white") %>%
+  dyEvent("2021-1-06", "Third lockdown", labelLoc = "bottom", color = "white") %>%
   dyCrosshair(direction = "vertical") %>%
-  dyLegend(show = "always") %>%
+  dyLegend(show = "follow") %>%
   dyRangeSelector() %>%
   dyCSS("dygraph.css")
