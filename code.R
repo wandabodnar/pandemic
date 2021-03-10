@@ -61,7 +61,7 @@ random_round <- function(x) {
 }
 
 sf_data_sub <- sf_data %>%
-  filter(date == "2021-03-06")
+  filter(date == "2021-03-07")
 
 num_dots <- as.data.frame(sf_data_sub) %>% 
   select(new_cases) %>% 
@@ -87,7 +87,7 @@ p <- ggplot() +
   theme_void(base_size = 48) +
   labs(x = NULL, y = NULL,
        title = "Spread of SARS-CoV-2 in London",
-       subtitle = "Date: 06/03/2021 \n 1 dot = 1 new case",
+       subtitle = "Date: 07/03/2021 \n 1 dot = 1 new case",
        caption = "Data source: PHE") +
   guides(colour = guide_legend(override.aes = list(size = 18))) +
   theme(plot.background = element_rect(fill = "black", color = NA), 
@@ -100,7 +100,7 @@ p <- ggplot() +
         legend.title = element_blank(),
         legend.position = "none")
 
-ggsave("377.png", plot = p, dpi = 72, width = 100.39, height = 86.49, units = "cm")
+ggsave("378.png", plot = p, dpi = 72, width = 100.39, height = 86.49, units = "cm")
 
 #The images were resized to 2842x2449px and the video was rendered in Photoshop.
 
